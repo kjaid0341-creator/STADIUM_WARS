@@ -23,7 +23,22 @@ const httpServer = createServer(app);
 app.use(helmet());
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    origin: (origin, callback) => {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      const isAllowed =
+        origin.startsWith('http://localhost:') ||
+        origin.startsWith('http://127.0.0.1:') ||
+        origin.endsWith('.vercel.app') ||
+        origin === 'https://fifa-client.vercel.app';
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(null, false); // Block other domains gracefully
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   })
