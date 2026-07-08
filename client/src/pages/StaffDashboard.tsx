@@ -171,14 +171,22 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ onNavigate }) =>
   const congestedZonesCount = sensorArray.filter(s => (s.crowdCount / s.capacity) >= 0.80).length;
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-[#0b0f19] via-[#101435] to-[#1a1440] text-white flex flex-col relative overflow-hidden font-sans">
+      {/* 2-3 Ambient background color glows (Vercel/Stripe style blobs) */}
+      <div className="absolute top-[-100px] left-[-50px] w-[350px] h-[350px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-[-100px] right-[-50px] w-[350px] h-[350px] bg-violet-600/15 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+      {/* Top glowing branded neon border bar */}
+      <div className="bg-gradient-to-r from-emerald-400 via-violet-500 to-amber-500 h-[4px] w-full shrink-0 relative z-20 shadow-[0_1px_15px_rgba(139,92,246,0.3)]"></div>
+
       {/* Upper Navigation Navbar */}
-      <header className="border-b border-slate-800 bg-[#0d1527] px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+      <header className="border-b border-slate-850 bg-gradient-to-r from-[#0d1527] to-[#121c33] px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-md">
         <div className="flex items-center gap-2">
-          <div className="h-9 w-9 bg-primary/20 border border-primary/40 rounded-lg flex items-center justify-center text-primary font-black text-sm">IQ</div>
+          <div className="h-9 w-9 bg-gradient-to-br from-emerald-400 to-violet-500 border border-emerald-400/20 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-[0_0_12px_rgba(139,92,246,0.4)] animate-pulse-slow">IQ</div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight">StadiumIQ Ops</h1>
-            <p className="text-[10px] text-slate-400">FIFA 2026 STAFF OPERATIONS PORTAL</p>
+            <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">StadiumIQ Ops</h1>
+            <p className="text-[10px] text-white/50 font-bold uppercase tracking-wider">FIFA 2026 STAFF OPERATIONS PORTAL</p>
           </div>
         </div>
 
