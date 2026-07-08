@@ -80,8 +80,9 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       return;
     }
 
-    // Initialize socket client (proxied through /socket.io in Vite)
-    const newSocket = io({
+    // Initialize socket client
+    const socketUrl = (import.meta as any).env?.VITE_API_URL || window.location.origin;
+    const newSocket = io(socketUrl, {
       autoConnect: true,
       reconnection: true,
     });

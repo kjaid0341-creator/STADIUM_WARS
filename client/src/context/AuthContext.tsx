@@ -19,6 +19,9 @@ interface AuthContextType {
   apiFetch: (url: string, options?: RequestInit) => Promise<any>;
 }
 
+// Configurable API base url for custom cloud deployments (e.g. Render / Heroku backend URL)
+const API_BASE = ((import.meta as any).env?.VITE_API_URL || '').replace(/\/$/, '');
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -30,7 +33,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('/api/auth/refresh', {
+        const response = await fetch(`${API_BASE}/api/auth/refresh`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -41,7 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setAccessToken(token);
 
           // Get profile
-          const profileResponse = await fetch('/api/auth/profile', {
+          const profileResponse = await fetch(`${API_BASE}/api/auth/profile`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -63,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch(`${API_BASE}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -85,7 +88,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     role: 'FAN' | 'VOLUNTEER' | 'STAFF',
     preferredLanguage: 'en' | 'es' | 'hi' = 'en'
   ) => {
-    const response = await fetch('/api/auth/register', {
+    const response = await fetch(`${API_BASE}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password, role, preferredLanguage }),
@@ -99,7 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = async () => {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST' });
     } catch (err) {
       console.error('Failed to log out on server:', err);
     }
@@ -110,7 +113,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const updateProfile = async (name?: string, preferredLanguage?: 'en' | 'es' | 'hi') => {
     if (!accessToken) throw new Error('Unauthenticated');
 
-    const response = await fetch('/api/auth/profile', {
+    const response = await fetch(`${API_BASE}/api/auth/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -138,12 +141,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
-    let response = await fetch(url, { ...options, headers });
+    const requestUrl = url.startsWith('/') ? `${API_BASE}${url}` : url;
+    let response = await fetch(requestUrl, { ...options, headers });
 
     if (response.status === 401 && !url.includes('/auth/login') && !url.includes('/auth/refresh')) {
       // Access token expired, attempt refresh
       try {
-        const refreshResponse = await fetch('/api/auth/refresh', {
+        const refreshResponse = await fetch(`${API_BASE}/api/auth/refresh`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -155,7 +159,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
           // Retry the original request with new token
           headers['Authorization'] = `Bearer ${newToken}`;
-          response = await fetch(url, { ...options, headers });
+          response = await fetch(requestUrl, { ...options, headers });
         } else {
           // Refresh failed, logout
           logout();
