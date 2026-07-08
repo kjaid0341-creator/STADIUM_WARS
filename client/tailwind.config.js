@@ -36,6 +36,16 @@ export default {
         destructive: {
           DEFAULT: "#ef4444",
           foreground: "#ffffff"
+        },
+        violet: {
+          DEFAULT: '#8b5cf6',
+          hover: '#7c3aed'
+        },
+        rose: {
+          DEFAULT: '#f43f5e'
+        },
+        sky: {
+          DEFAULT: '#0ea5e9'
         }
       },
       fontFamily: {
