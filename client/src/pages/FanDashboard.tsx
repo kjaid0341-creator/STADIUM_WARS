@@ -132,7 +132,7 @@ export const FanDashboard: React.FC<FanDashboardProps> = ({ onNavigate }) => {
       )}
 
       {/* Main Header */}
-      <header className="border-b border-slate-850 bg-gradient-to-r from-[#0d1527] to-[#121c33] px-6 py-4 flex items-center justify-between relative z-15 shadow-md">
+      <header className="border-b border-slate-850 bg-gradient-to-r from-[#0d1527] to-[#121c33] px-6 py-4 flex items-center justify-between relative z-30 shadow-md">
         <div className="flex items-center gap-2">
           {/* Logo badge with emerald-to-violet gradient and soft glow */}
           <div className="h-9 w-9 bg-gradient-to-br from-emerald-400 to-violet-500 border border-emerald-400/20 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-[0_0_12px_rgba(139,92,246,0.4)] animate-pulse-slow">
