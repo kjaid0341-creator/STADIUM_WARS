@@ -6,25 +6,43 @@ import { Register } from './pages/Register.js';
 import { Profile } from './pages/Profile.js';
 import { FanDashboard } from './pages/FanDashboard.js';
 import { StaffDashboard } from './pages/StaffDashboard.js';
+import { StaticPage } from './pages/StaticPages.js';
 import { Loader2 } from 'lucide-react';
 
 const MainAppContent: React.FC = () => {
   const { user, loading } = useAuth();
   const [page, setPage] = useState<string>('login');
 
-  // Sync route page state with auth session changes
+  // Sync route page state with auth session changes and popstate browser history
   useEffect(() => {
-    if (!loading) {
-      if (user) {
-        if (user.role === 'STAFF' || user.role === 'VOLUNTEER') {
-          setPage('staff');
+    const handleUrlChange = () => {
+      const path = window.location.pathname;
+      if (path === '/about') {
+        setPage('about');
+      } else if (path === '/features') {
+        setPage('features');
+      } else if (path === '/faq') {
+        setPage('faq');
+      } else if (path === '/contact') {
+        setPage('contact');
+      } else if (path === '/register') {
+        setPage('register');
+      } else if (!loading) {
+        if (user) {
+          if (user.role === 'STAFF' || user.role === 'VOLUNTEER') {
+            setPage('staff');
+          } else {
+            setPage('fan');
+          }
         } else {
-          setPage('fan');
+          setPage('login');
         }
-      } else {
-        setPage('login');
       }
-    }
+    };
+
+    handleUrlChange();
+    window.addEventListener('popstate', handleUrlChange);
+    return () => window.removeEventListener('popstate', handleUrlChange);
   }, [user, loading]);
 
   if (loading) {
@@ -33,6 +51,22 @@ const MainAppContent: React.FC = () => {
         <Loader2 className="h-10 w-10 animate-spin text-primary" />
         <h2 className="text-sm font-semibold tracking-wider uppercase text-slate-400">Loading StadiumIQ...</h2>
       </div>
+    );
+  }
+
+  // Public/Static pages routing (accessible to everyone)
+  if (['about', 'features', 'faq', 'contact'].includes(page)) {
+    return (
+      <StaticPage
+        pageType={page as any}
+        onBack={() => {
+          if (user) {
+            setPage(user.role === 'STAFF' || user.role === 'VOLUNTEER' ? 'staff' : 'fan');
+          } else {
+            setPage('login');
+          }
+        }}
+      />
     );
   }
 

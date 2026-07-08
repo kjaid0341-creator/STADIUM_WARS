@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/((?!assets/|favicon.svg|stadium.png|sitemap.xml).*)" ,
+      "destination": "/index.html"
+    }
+  ]
+}
