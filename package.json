@@ -1,0 +1,20 @@
+{
+  "name": "stadium-iq-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w server && npm run build -w client",
+    "test": "npm run test -w server && npm run test -w client",
+    "db:migrate": "npm run db:migrate -w server",
+    "db:generate": "npm run db:generate -w server",
+    "lint": "npm run lint -w server && npm run lint -w client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

@@ -1,0 +1,45 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                Int      @id @default(autoincrement())
+  email             String   @unique
+  password          String
+  name              String
+  role              String   @default("FAN") // "FAN" | "VOLUNTEER" | "STAFF"
+  preferredLanguage String   @default("en")  // "en" | "es" | "hi"
+  createdAt         DateTime @default(now())
+}
+
+model Incident {
+  id           Int      @id @default(autoincrement())
+  type         String   // "CROWD_CONGESTION" | "MEDICAL" | "SECURITY" | "FACILITY_ISSUE" | "OTHER"
+  location     String   // e.g. "Gate 3", "Section 104"
+  severity     String   // "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"
+  status       String   @default("OPEN") // "OPEN" | "RESOLVING" | "RESOLVED"
+  description  String
+  reporterName String
+  createdAt    DateTime @default(now())
+}
+
+model SensorReading {
+  id         Int      @id @default(autoincrement())
+  sectionId  String   // e.g., "GATE_3", "GATE_5", "CONCOURSE_A", "SECTION_102"
+  crowdCount Int
+  capacity   Int
+  timestamp  DateTime @default(now())
+}
+
+model Alert {
+  id         Int      @id @default(autoincrement())
+  message    String
+  severity   String   // "INFO" | "WARNING" | "CRITICAL"
+  senderName String
+  createdAt  DateTime @default(now())
+}
