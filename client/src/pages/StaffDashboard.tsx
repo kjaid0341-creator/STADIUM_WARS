@@ -236,42 +236,42 @@ export const StaffDashboard: React.FC<StaffDashboardProps> = ({ onNavigate }) =>
       </header>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-6 overflow-hidden flex flex-col gap-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-6 overflow-hidden flex flex-col gap-6 relative z-10">
         
         {/* KPI Panel */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 shrink-0">
-          <div className="glass-panel p-4 rounded-lg flex items-center justify-between border border-slate-800">
+          <div className="bg-[#131a2c]/40 border border-emerald-500/25 p-4 rounded-lg flex items-center justify-between shadow-[0_0_15px_rgba(16,185,129,0.05)] hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] transition-all duration-350">
             <div>
-              <p className="text-[10px] uppercase font-bold text-slate-400">Total Stadium Occupancy</p>
-              <h3 className="text-2xl font-black mt-1 text-white">{totalOccupancy.toLocaleString()}</h3>
+              <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Total Occupancy</p>
+              <h3 className="text-2xl font-black mt-1 text-emerald-400">{totalOccupancy.toLocaleString()}</h3>
             </div>
-            <Users className="h-8 w-8 text-primary opacity-40" />
+            <Users className="h-8 w-8 text-emerald-400 opacity-60" />
           </div>
 
-          <div className="glass-panel p-4 rounded-lg flex items-center justify-between border border-slate-800">
+          <div className="bg-[#131a2c]/40 border border-[#3b82f6]/25 p-4 rounded-lg flex items-center justify-between shadow-[0_0_15px_rgba(59,130,246,0.05)] hover:border-[#3b82f6]/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.15)] transition-all duration-350">
             <div>
-              <p className="text-[10px] uppercase font-bold text-slate-400">Mean Crowd Density</p>
-              <h3 className="text-2xl font-black mt-1 text-white">{Math.round(averageDensityRatio)}%</h3>
+              <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Mean Density</p>
+              <h3 className="text-2xl font-black mt-1 text-blue-400">{Math.round(averageDensityRatio)}%</h3>
             </div>
-            <Clock className="h-8 w-8 text-secondary opacity-40" />
+            <Clock className="h-8 w-8 text-blue-400 opacity-60" />
           </div>
 
-          <div className="glass-panel p-4 rounded-lg flex items-center justify-between border border-slate-800">
+          <div className="bg-[#131a2c]/40 border border-amber-500/25 p-4 rounded-lg flex items-center justify-between shadow-[0_0_15px_rgba(245,158,11,0.05)] hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] transition-all duration-350">
             <div>
-              <p className="text-[10px] uppercase font-bold text-slate-400">Alert Congestions</p>
-              <h3 className="text-2xl font-black mt-1 text-accent">{congestedZonesCount} Gates</h3>
+              <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Congested Gates</p>
+              <h3 className="text-2xl font-black mt-1 text-amber-400">{congestedZonesCount} Zones</h3>
             </div>
-            <AlertOctagon className="h-8 w-8 text-accent opacity-40" />
+            <AlertOctagon className="h-8 w-8 text-amber-400 opacity-60" />
           </div>
 
-          <div className="glass-panel p-4 rounded-lg flex items-center justify-between border border-slate-800">
+          <div className="bg-[#131a2c]/40 border border-destructive/25 p-4 rounded-lg flex items-center justify-between shadow-[0_0_15px_rgba(239,68,68,0.05)] hover:border-destructive/50 hover:shadow-[0_0_20px_rgba(239,68,68,0.15)] transition-all duration-350">
             <div>
-              <p className="text-[10px] uppercase font-bold text-slate-400">Active Incidents</p>
+              <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Active Incidents</p>
               <h3 className="text-2xl font-black mt-1 text-destructive">
                 {incidents.filter(i => i.status !== 'RESOLVED').length} Cases
               </h3>
             </div>
-            <AlertTriangle className="h-8 w-8 text-destructive opacity-40" />
+            <AlertTriangle className="h-8 w-8 text-destructive opacity-60" />
           </div>
         </div>
 

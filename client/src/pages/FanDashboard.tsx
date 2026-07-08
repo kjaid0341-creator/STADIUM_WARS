@@ -100,10 +100,16 @@ export const FanDashboard: React.FC<FanDashboardProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-white flex flex-col">
+    <div className="min-h-screen bg-[#0b0f19] text-white flex flex-col relative overflow-hidden">
+      {/* Dynamic Background Mesh Gradients */}
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-secondary/5 to-transparent pointer-events-none z-0"></div>
+      
+      {/* Top glowing neon border bar */}
+      <div className="bg-gradient-to-r from-primary via-[#06b6d4] to-secondary h-[4px] w-full shrink-0 relative z-20 shadow-[0_1px_15px_rgba(16,185,129,0.3)]"></div>
+
       {/* Real-time Alert Banner via WebSocket */}
       {latestAlert && (
-        <div className={`py-2 px-4 flex items-center justify-between text-xs font-semibold tracking-wide transition-all duration-300 ${
+        <div className={`py-2 px-4 flex items-center justify-between text-xs font-semibold tracking-wide transition-all duration-300 relative z-20 ${
           latestAlert.severity === 'CRITICAL' 
             ? 'bg-destructive text-white animate-pulse' 
             : latestAlert.severity === 'WARNING' 
@@ -120,24 +126,24 @@ export const FanDashboard: React.FC<FanDashboardProps> = ({ onNavigate }) => {
       )}
 
       {/* Main Header */}
-      <header className="border-b border-slate-800 bg-[#0d1527] px-6 py-4 flex items-center justify-between">
+      <header className="border-b border-slate-800 bg-gradient-to-r from-[#0d1527] to-[#121c33] px-6 py-4 flex items-center justify-between relative z-15 shadow-md">
         <div className="flex items-center gap-2">
-          <div className="h-9 w-9 bg-primary/20 border border-primary/40 rounded-lg flex items-center justify-center text-primary font-black text-sm">IQ</div>
+          <div className="h-9 w-9 bg-gradient-to-br from-primary to-teal-500 border border-primary/40 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-[0_0_12px_rgba(16,185,129,0.25)] animate-pulse-slow">IQ</div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight">StadiumIQ</h1>
-            <p className="text-[10px] text-slate-400">FIFA 2026 FAN PORTAL</p>
+            <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">StadiumIQ</h1>
+            <p className="text-[10px] text-slate-400 font-semibold tracking-widest uppercase">FIFA 2026 FAN PORTAL</p>
           </div>
         </div>
 
         {/* Global Controls */}
         <div className="flex items-center gap-4">
           {/* Language selection syncs with User profile */}
-          <div className="flex items-center gap-1.5 bg-[#131a2c] px-3 py-1.5 rounded-md border border-slate-800 text-xs text-slate-300">
-            <Languages className="h-3.5 w-3.5" />
+          <div className="flex items-center gap-1.5 bg-[#131a2c]/80 px-3 py-1.5 rounded-md border border-slate-800 text-xs text-slate-300 shadow-inner">
+            <Languages className="h-3.5 w-3.5 text-primary" />
             <select
               value={chatLanguage}
               onChange={e => handleLanguageChange(e.target.value as any)}
-              className="bg-transparent focus:outline-none cursor-pointer font-semibold text-white"
+              className="bg-transparent focus:outline-none cursor-pointer font-bold text-white"
             >
               <option value="en">English</option>
               <option value="es">Español</option>
@@ -147,7 +153,7 @@ export const FanDashboard: React.FC<FanDashboardProps> = ({ onNavigate }) => {
 
           <button
             onClick={() => onNavigate('profile')}
-            className="h-9 w-9 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:border-primary transition-colors"
+            className="h-9 w-9 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:border-primary hover:shadow-[0_0_15px_rgba(16,185,129,0.25)] transition-all duration-300"
           >
             <User className="h-5 w-5 text-slate-300" />
           </button>
@@ -155,15 +161,17 @@ export const FanDashboard: React.FC<FanDashboardProps> = ({ onNavigate }) => {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
+      <main className="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden relative z-10">
         
         {/* Navigation Tabs (Mobile optimized layout) */}
         <div className="md:col-span-2 flex flex-col gap-4 h-[550px] md:h-[650px]">
-          <div className="flex bg-[#131a2c] p-1 rounded-lg border border-slate-800 shrink-0">
+          <div className="flex bg-[#131a2c]/85 p-1 rounded-lg border border-slate-800 shrink-0 shadow-lg">
             <button
               onClick={() => setActiveTab('map')}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
-                activeTab === 'map' ? 'bg-primary text-white shadow-md' : 'text-slate-400 hover:text-white'
+              className={`flex-1 py-2 px-3 rounded-md text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+                activeTab === 'map' 
+                  ? 'bg-gradient-to-r from-primary to-teal-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.35)]' 
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               <MapPin className="h-4 w-4" />
@@ -171,8 +179,10 @@ export const FanDashboard: React.FC<FanDashboardProps> = ({ onNavigate }) => {
             </button>
             <button
               onClick={() => setActiveTab('ticket')}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
-                activeTab === 'ticket' ? 'bg-primary text-white shadow-md' : 'text-slate-400 hover:text-white'
+              className={`flex-1 py-2 px-3 rounded-md text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+                activeTab === 'ticket' 
+                  ? 'bg-gradient-to-r from-secondary to-[#06b6d4] text-white shadow-[0_0_15px_rgba(59,130,246,0.35)]' 
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               <Ticket className="h-4 w-4" />
@@ -358,16 +368,16 @@ export const FanDashboard: React.FC<FanDashboardProps> = ({ onNavigate }) => {
                 <div>
                   <h2 className="text-sm font-bold text-white uppercase tracking-wider mb-2 border-b border-slate-800/80 pb-2">Your FIFA World Cup 2026 Ticket</h2>
                   
-                  <div className="bg-[#1e293b]/40 rounded-lg p-5 border border-slate-800 flex justify-between items-center relative overflow-hidden mt-4">
+                  <div className="bg-gradient-to-br from-[#1e293b] via-[#111e38] to-[#16274d] rounded-lg p-5 border border-primary/25 flex justify-between items-center relative overflow-hidden mt-4 shadow-[0_0_20px_rgba(16,185,129,0.15)] hover:border-primary/50 transition-all duration-300">
                     {/* Decorative FIFA details */}
                     <div className="absolute right-0 top-0 bottom-0 w-24 bg-primary/10 flex items-center justify-center opacity-30">
                       <Ticket className="h-16 w-16 text-primary rotate-12" />
                     </div>
 
                     <div className="space-y-3 z-10">
-                      <div>
-                        <span className="text-[10px] text-primary font-bold uppercase tracking-wider">FIFA Match 18</span>
-                        <h3 className="font-bold text-lg leading-tight">USA vs Colombia</h3>
+                      <div className="mb-1">
+                        <span className="text-[10px] text-primary font-bold uppercase tracking-wider bg-primary/10 px-2 py-0.5 rounded border border-primary/20">FIFA Match 18</span>
+                        <h3 className="font-bold text-lg leading-tight mt-2">USA vs Colombia</h3>
                         <p className="text-xs text-slate-400">CenturyLink Arena • July 9, 2026</p>
                       </div>
                       
@@ -409,7 +419,7 @@ export const FanDashboard: React.FC<FanDashboardProps> = ({ onNavigate }) => {
                     setHighlightedPath(true);
                     setSelectedMapSection('SECTION_104');
                   }}
-                  className="w-full bg-primary hover:bg-primary-hover text-white font-bold py-3 rounded-md transition-colors flex items-center justify-center gap-2 mt-4"
+                  className="w-full bg-gradient-to-r from-primary to-teal-500 hover:from-primary-hover hover:to-teal-600 text-white font-bold py-3 rounded-md transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2 mt-4"
                 >
                   <Navigation2 className="h-5 w-5 fill-white" />
                   <span>Route from entrance to Seat (104-G-18)</span>

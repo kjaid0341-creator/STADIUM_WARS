@@ -33,24 +33,25 @@ export const Login: React.FC<LoginProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0b0f19] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#0b0f19] px-4 relative overflow-hidden">
       {/* Background glowing effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none animate-pulse-slow"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl pointer-events-none animate-pulse-slow"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none animate-pulse-slow"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#3b82f6]/20 rounded-full blur-3xl pointer-events-none animate-pulse-slow"></div>
+      <div className="absolute top-1/3 right-1/3 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none animate-pulse-slow"></div>
 
-      <div className="w-full max-w-md glass-panel p-8 rounded-lg shadow-2xl relative z-10">
+      <div className="w-full max-w-md bg-[#131a2c]/40 backdrop-blur-xl border border-[#10b981]/25 hover:border-[#10b981]/50 p-8 rounded-lg shadow-[0_0_50px_rgba(16,185,129,0.15)] relative z-10 transition-all duration-500">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full text-primary mb-3">
-            <Shield className="h-8 w-8" />
+          <div className="inline-flex items-center justify-center p-3 bg-gradient-to-tr from-primary/20 to-[#3b82f6]/20 border border-primary/30 rounded-full text-primary mb-3 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+            <Shield className="h-8 w-8 text-primary" />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">StadiumIQ</h1>
+          <h1 className="text-4xl font-black tracking-tight bg-gradient-to-r from-primary via-[#2dd4bf] to-[#3b82f6] bg-clip-text text-transparent">StadiumIQ</h1>
           <p className="text-sm text-slate-400 mt-2">
             FIFA World Cup 2026 Smart Operations Platform
           </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-destructive/10 border border-destructive/20 rounded-md flex items-start text-destructive text-sm gap-2">
+          <div className="mb-6 p-4 bg-destructive/10 border border-destructive/25 rounded-md flex items-start text-destructive text-sm gap-2">
             <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
@@ -70,7 +71,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigate }) => {
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full bg-[#131a2c]/60 border border-slate-700/60 rounded-md pl-10 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm"
+                className="w-full bg-[#0b0f19]/80 border border-slate-700/60 rounded-md pl-10 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm shadow-inner"
                 placeholder="fan@fifa.com or staff@stadium.iq"
               />
             </div>
@@ -89,7 +90,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigate }) => {
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full bg-[#131a2c]/60 border border-slate-700/60 rounded-md pl-10 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm"
+                className="w-full bg-[#0b0f19]/80 border border-slate-700/60 rounded-md pl-10 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm shadow-inner"
                 placeholder="••••••••"
               />
             </div>
@@ -98,7 +99,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigate }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-3 rounded-md transition-colors flex items-center justify-center gap-2 disabled:opacity-55 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-primary to-[#06b6d4] hover:from-primary-hover hover:to-[#0891b2] text-white font-bold py-3 rounded-md transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2 disabled:opacity-55 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>
@@ -116,7 +117,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigate }) => {
             Don't have an account?{' '}
             <button
               onClick={() => onNavigate('register')}
-              className="text-primary hover:underline font-semibold"
+              className="text-primary hover:text-primary-hover underline font-bold"
             >
               Sign Up Here
             </button>
