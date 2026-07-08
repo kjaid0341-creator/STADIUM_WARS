@@ -38,6 +38,9 @@ export default {
           foreground: "#ffffff"
         }
       },
+      fontFamily: {
+        sans: ['Inter', 'Outfit', 'sans-serif'],
+      },
       borderRadius: {
         lg: "0.75rem",
         md: "0.5rem",
