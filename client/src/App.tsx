@@ -6,7 +6,10 @@ import { Register } from './pages/Register.js';
 import { Profile } from './pages/Profile.js';
 import { FanDashboard } from './pages/FanDashboard.js';
 import { StaffDashboard } from './pages/StaffDashboard.js';
-import { StaticPage } from './pages/StaticPages.js';
+import { About } from './pages/About.js';
+import { Features } from './pages/Features.js';
+import { FAQ } from './pages/FAQ.js';
+import { Contact } from './pages/Contact.js';
 import { Loader2 } from 'lucide-react';
 
 const MainAppContent: React.FC = () => {
@@ -55,19 +58,25 @@ const MainAppContent: React.FC = () => {
   }
 
   // Public/Static pages routing (accessible to everyone)
-  if (['about', 'features', 'faq', 'contact'].includes(page)) {
-    return (
-      <StaticPage
-        pageType={page as any}
-        onBack={() => {
-          if (user) {
-            setPage(user.role === 'STAFF' || user.role === 'VOLUNTEER' ? 'staff' : 'fan');
-          } else {
-            setPage('login');
-          }
-        }}
-      />
-    );
+  const handleBackToDashboard = () => {
+    if (user) {
+      setPage(user.role === 'STAFF' || user.role === 'VOLUNTEER' ? 'staff' : 'fan');
+    } else {
+      setPage('login');
+    }
+  };
+
+  if (page === 'about') {
+    return <About onBack={handleBackToDashboard} />;
+  }
+  if (page === 'features') {
+    return <Features onBack={handleBackToDashboard} />;
+  }
+  if (page === 'faq') {
+    return <FAQ onBack={handleBackToDashboard} />;
+  }
+  if (page === 'contact') {
+    return <Contact onBack={handleBackToDashboard} />;
   }
 
   // Auth Guards & Guest Routing

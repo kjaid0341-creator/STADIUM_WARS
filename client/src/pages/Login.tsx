@@ -224,7 +224,7 @@ export const Login: React.FC<LoginProps> = ({ onNavigate }) => {
           <div className="flex flex-col items-center md:items-start gap-1">
             <p className="font-bold text-slate-300">© 2026 StadiumIQ. FIFA World Cup 2026 Smart Venues.</p>
             <p className="text-[10px] text-slate-500 font-semibold">
-              Support Email: <a href="mailto:support@stadium.iq" className="hover:text-primary transition-colors text-slate-450">support@stadium.iq</a> • Phone: <a href="tel:+18005552026" className="hover:text-primary transition-colors text-slate-450">+1 (800) 555-2026</a>
+              Support Email: <a href="mailto:support@stadiumiq.app" className="hover:text-primary transition-colors text-slate-450">support@stadiumiq.app</a> • Phone: <a href="tel:+18005552026" className="hover:text-primary transition-colors text-slate-450">(800) 555-2026</a>
             </p>
           </div>
 

@@ -2,7 +2,7 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/((?!assets/|favicon.svg|stadium.png|sitemap.xml).*)" ,
+      "source": "/((?!assets/|favicon.svg|stadium.png|sitemap.xml|robots.txt).*)" ,
       "destination": "/index.html"
     }
   ]
